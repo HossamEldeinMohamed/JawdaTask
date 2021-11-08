@@ -1,0 +1,114 @@
+﻿@*@using Microsoft.AspNetCore.Builder
+    @using Microsoft.AspNetCore.Localization
+    @using Microsoft.Extensions.Options
+    @using Microsoft.AspNetCore.Mvc.Localization
+
+    @inject IOptions<RequestLocalizationOptions> locOptions
+    @inject IViewLocalizer localizer
+
+    @{
+        var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    }
+    @{
+        ViewData["Title"] = "Home Page";
+    }
+
+    <p>@localizer["Welecome"]<p>
+        <a class="btn btn-primary" asp-action="Create">@localizer["Create"]</a>
+
+        <table class="table mt-4">
+            <tr>
+                <td>@localizer["Culture"]</td>
+                <td>
+                    @requestCulture.RequestCulture.Culture.Name
+                </td>
+            </tr>
+            <tr>
+                <td>@localizer["UICulture"]</td>
+                <td>
+                    @requestCulture.RequestCulture.UICulture.Name
+                </td>
+            </tr>
+            <tr>
+                <td>@localizer["Date"]</td>
+                <td>@DateTime.Now.ToLongDateString()</td>
+            </tr>
+            <tr>
+                <td>@localizer["Currency"]</td>
+                <td>@(9985.00.ToString("c"))</td>
+            </tr>
+            <tr>
+                <td>@localizer["Number"]</td>
+                <td>@(987.69m.ToString("F2"))</td>
+            </tr>
+        </table>*@
+@model IEnumerable<JawdaTask.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+<h1>Products</h1>
+<form asp-action="Index">
+
+    <div class="form-group" id="Catogryselected">
+        <label class="control-label">CategoryName</label>
+        <select id="select" class="form-control" name="CategoryName" asp-items="ViewBag.CategoryName"></select>
+        <div class="form-group">
+            <input id="bnsubmet" type="submit" value="Filter" class="btn btn-sm btn-primary rounded-0 text-uppercase" />
+        </div>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quanity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="menuList">
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quanity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Note)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>                    
+                </tr>
+            }
+        }
+    </tbody>
+</table>

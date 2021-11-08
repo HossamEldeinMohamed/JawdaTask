@@ -1,0 +1,98 @@
+﻿@model IEnumerable<JawdaTask.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+@*@section scripts
+{
+    @Scripts.Render("~/Scripts/jquery-1.8.2.js") // The control needs jquery.
+    @Scripts.Render("~/Scripts/icarousel.min.js") // The control in question.
+    @Styles.Render("~/Content/icarousel.css") // A css file needed by the control.
+}*@
+<h1>Index</h1>
+<form asp-action="Index">
+
+    <div class="form-group" id="Catogryselected">
+        <label class="control-label">CategoryName</label>
+        <select id="select" class="form-control" name="CategoryName" asp-items="ViewBag.CategoryName"></select>
+        <div class="form-group">
+            <input id="bnsubmet" type="submit" value="Filter" class="btn btn-sm btn-primary rounded-0 text-uppercase" />
+        </div>
+    </div>
+</form>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quanity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="menuList">
+        @if (Model != null)
+        {
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quanity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                </td>
+            </tr>
+        }
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        //$("#bnsubmet").click(function (e) {
+        //    var valdata = $("#select").val();
+        //    $.ajax({
+        //        url: "/Products/Index/",
+        //        type: "POST",
+        //        dataType: 'json',
+        //        data: { CategoryName: valdata },
+                
+        //    });
+        //});
+    });
+</script>
